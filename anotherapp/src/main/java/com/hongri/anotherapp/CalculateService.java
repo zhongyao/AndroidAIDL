@@ -7,6 +7,9 @@ import android.os.RemoteException;
 
 import com.hongri.androidaidl.CalculateInterface;
 
+/**
+ * @author hongri
+ */
 public class CalculateService extends Service {
 
     @Override
