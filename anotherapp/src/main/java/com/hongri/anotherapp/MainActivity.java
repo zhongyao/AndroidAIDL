@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 /**
  * @author hongri
+ * Server端
  */
 public class MainActivity extends AppCompatActivity {
 
