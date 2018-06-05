@@ -22,14 +22,29 @@ public class LibraryActivity extends AppCompatActivity {
     private LibraryInterface mService;
     private List<Book> list;
 
+
+    public NewBooksArrivedListener listener = new NewBooksArrivedListener.Stub() {
+        @Override
+        public void NewBooksArrived(Book book) throws RemoteException {
+            Logger.D("NewBooksArrived:" + "book:" + book.getName() + " pages:" + book.getPages());
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
 
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName("com.hongri.anotherapp", "com.hongri.anotherapp.LibraryService"));
-        bindService(intent, conn, Context.BIND_AUTO_CREATE);
+        findViewById(R.id.btnRegister).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    mService.registerBooksArrivedListener(listener);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         findViewById(R.id.btnAdd).setOnClickListener(new OnClickListener() {
             @Override
@@ -60,7 +75,16 @@ public class LibraryActivity extends AppCompatActivity {
         });
     }
 
-    ServiceConnection conn = new ServiceConnection() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.hongri.anotherapp", "com.hongri.anotherapp.LibraryService"));
+        bindService(intent, conn, Context.BIND_AUTO_CREATE);
+    }
+
+    public ServiceConnection conn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mService = LibraryInterface.Stub.asInterface(service);
@@ -72,4 +96,12 @@ public class LibraryActivity extends AppCompatActivity {
         }
     };
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (conn != null) {
+            unbindService(conn);
+        }
+    }
 }

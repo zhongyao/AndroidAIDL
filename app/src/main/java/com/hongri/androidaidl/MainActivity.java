@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.IBinder.DeathRecipient;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -38,21 +37,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Binder在运行在服务端中，如果服务端进程由于某种原因异常终止，这个时候Binder死亡，会导致我们的调用失败
      * 使用linkToDeath unlinkToDeath 实现恢复连接的功能。
      */
-    private IBinder.DeathRecipient mDeathRecipient = new DeathRecipient() {
-        @Override
-        public void binderDied() {
-            if (mService == null) {
-                return;
-            }
-            mService.asBinder().unlinkToDeath(mDeathRecipient, 0);
-            mService = null;
-
-            /**
-             * 重新绑定远程服务
-             */
-            initService();
-        }
-    };
+    //private IBinder.DeathRecipient mDeathRecipient = new DeathRecipient() {
+    //    @Override
+    //    public void binderDied() {
+    //        if (mService == null) {
+    //            return;
+    //        }
+    //        mService.asBinder().unlinkToDeath(mDeathRecipient, 0);
+    //        mService = null;
+    //
+    //        /**
+    //         * 重新绑定远程服务
+    //         */
+    //        initService();
+    //    }
+    //};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +59,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         initView();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         initService();
     }
@@ -116,8 +121,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 mService = CalculateInterface.Stub.asInterface(binder);
                 //客户端绑定远程服务成功后，给binder设置死亡代理
-                binder.linkToDeath(mDeathRecipient, 0);
-            } catch (RemoteException e) {
+                //binder.linkToDeath(mDeathRecipient, 0);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -127,4 +132,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mService = null;
         }
     };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (conn != null) {
+            unbindService(conn);
+        }
+    }
 }
