@@ -46,4 +46,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv"
         android:text="跳转到LibraryActivity"/>
+
+    <Button
+        android:id="@+id/btnBinderPool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv"
+        android:text="跳转到BinderPoolActivity"/>
 </RelativeLayout>

@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //        initService();
     //    }
     //};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +90,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.setClass(MainActivity.this, LibraryActivity.class);
                 startActivity(intent);
 
+            }
+        });
+
+        findViewById(R.id.btnBinderPool).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, BinderPoolActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -28,6 +28,10 @@
             android:name=".LibraryService"
             android:enabled="true"
             android:exported="true"></service>
+        <service
+            android:name=".BinderPoolService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
