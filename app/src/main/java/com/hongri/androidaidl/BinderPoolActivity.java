@@ -8,6 +8,7 @@ import android.util.Log;
 
 /**
  * @author hongri
+ * 多个业务方使用AIDL业务是只需创建一个Service，根据不同的类型返回即可。
  */
 public class BinderPoolActivity extends Activity {
     private static final String TAG = "BinderPoolActivity";
