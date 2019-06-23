@@ -3,6 +3,10 @@ package com.hongri.anotherapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+/**
+ * @author hongri
+ * Server端
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
