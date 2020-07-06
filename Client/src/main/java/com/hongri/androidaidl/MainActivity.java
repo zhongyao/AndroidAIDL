@@ -104,12 +104,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnCalculate:
-                double num1 = Double.parseDouble(ed1.getText().toString());
-                double num2 = Double.parseDouble(ed2.getText().toString());
                 try {
-                    String answer = "计算结果：" + mService.doCalculate(num1, num2);
-                    tv.setText(answer);
-                } catch (RemoteException e) {
+                    double num1 = Double.parseDouble(ed1.getText().toString());
+                    double num2 = Double.parseDouble(ed2.getText().toString());
+                    if (mService != null) {
+                        String answer = "计算结果：" + mService.doCalculate(num1, num2);
+                        tv.setText(answer);
+                    } else {
+                        tv.setText("Server尚未启动，请先启动Server");
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
