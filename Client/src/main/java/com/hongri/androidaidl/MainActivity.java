@@ -79,28 +79,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        ed1 = (EditText)findViewById(R.id.et1);
-        ed2 = (EditText)findViewById(R.id.et2);
-        btnCalculate = (Button)findViewById(R.id.btnCalculate);
-        tv = (TextView)findViewById(R.id.tv);
+        ed1 = findViewById(R.id.et1);
+        ed2 = findViewById(R.id.et2);
+        btnCalculate = findViewById(R.id.btnCalculate);
+        tv = findViewById(R.id.tv);
 
-        findViewById(R.id.btnJump).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, LibraryActivity.class);
-                startActivity(intent);
+        findViewById(R.id.btnJump).setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, LibraryActivity.class);
+            startActivity(intent);
 
-            }
         });
 
-        findViewById(R.id.btnBinderPool).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, BinderPoolActivity.class);
-                startActivity(intent);
-            }
+        findViewById(R.id.btnBinderPool).setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, BinderPoolActivity.class);
+            startActivity(intent);
         });
 
         btnCalculate.setOnClickListener(this);
@@ -113,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 double num1 = Double.parseDouble(ed1.getText().toString());
                 double num2 = Double.parseDouble(ed2.getText().toString());
                 try {
-
                     String answer = "计算结果：" + mService.doCalculate(num1, num2);
                     tv.setText(answer);
                 } catch (RemoteException e) {
