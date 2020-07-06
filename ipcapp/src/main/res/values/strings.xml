@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">ipcapp</string>
-    <string name="ipcapp_MainActivity">ipcapp_MainActivity</string>
-    <string name="ipcapp_SecondActivity">ipcapp_SecondActivity</string>
-    <string name="ipcapp_ThirdActivity">ipcapp_ThirdActivity</string>
-</resources>
