@@ -9,8 +9,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.view.View;
-import android.view.View.OnClickListener;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,42 +35,33 @@ public class LibraryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
 
-        findViewById(R.id.btnRegister).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    mService.registerBooksArrivedListener(listener);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+        findViewById(R.id.btnRegister).setOnClickListener(v -> {
+            try {
+                mService.registerBooksArrivedListener(listener);
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
         });
 
-        findViewById(R.id.btnAdd).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    Book book = new Book();
-                    book.setName("life");
-                    book.setPages("234");
-                    mService.addBooks(book);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+        findViewById(R.id.btnAdd).setOnClickListener(v -> {
+            try {
+                Book book = new Book();
+                book.setName("life");
+                book.setPages("234");
+                mService.addBooks(book);
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
         });
 
-        findViewById(R.id.btnGet).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    list = mService.getBooks();
-                    for (int i = 0; i < list.size(); i++) {
-                        Logger.D("name:" + list.get(i).getName() + "age:" + list.get(i).getPages() + "\n");
-                    }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
+        findViewById(R.id.btnGet).setOnClickListener(v -> {
+            try {
+                list = mService.getBooks();
+                for (int i = 0; i < list.size(); i++) {
+                    Logger.D("name:" + list.get(i).getName() + "age:" + list.get(i).getPages() + "\n");
                 }
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
         });
     }
