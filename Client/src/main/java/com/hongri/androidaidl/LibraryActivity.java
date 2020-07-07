@@ -78,6 +78,9 @@ public class LibraryActivity extends AppCompatActivity {
     public ServiceConnection conn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
+            /**
+             * 用户将服务端的Binder对象转换为客户端所需的AIDL接口类型的对象
+             */
             mService = LibraryInterface.Stub.asInterface(service);
         }
 

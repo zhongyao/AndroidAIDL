@@ -42,8 +42,7 @@ public class CalculateService extends Service {
         @Override
         public double doCalculate(double a, double b) throws RemoteException {
             Calculate calculate = new Calculate();
-            double answer = calculate.calculateSum(a, b);
-            return answer;
+            return calculate.calculateSum(a, b);
         }
     };
 }
