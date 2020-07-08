@@ -13,6 +13,7 @@ import android.util.Log;
 /**
  * @author hongri
  * 区别于Server的BinderPool
+ * Binder的连接池
  */
 public class BinderPool {
     private static final String TAG = "BinderPool";
